@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "contract-builder-cli-v1"
+version = "1"
+description = "contract builder for lucy"
+authors = ["Jeff Modell <jmodell@busseinc.com>"]
+readme = "README.md"
+packages = [{include = "contract_builder_cli_v1"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+pymongo = "^4.3.3"
+xlrd = "^2.0.1"
+XlsxWriter = "^3.1.0"
+openpyxl = "^3.1.2"
+pandas = "^2.0.1"
+rich = "^13.3.5"
+pyyaml = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+ruff = "^0.0.264"
+pyinstaller = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
