@@ -257,9 +257,9 @@ def create_csv_from_contract(contract: dict) -> str:
 
     csv_string = ""
 
-    csv_string += ",".join(["", "", "", "", "", "", "", "", "", "", "Notes"]) + "\n"
+    csv_string += "|".join(["", "", "", "", "", "", "", "", "", "", "Notes"]) + "\n"
     csv_string += (
-        ",".join(["", "", "", "", "", "", "", "", "", "", contract["notes"]]) + "\n"
+        "|".join(["", "", "", "", "", "", "", "", "", "", contract["notes"]]) + "\n"
     )
 
     header = [
@@ -276,7 +276,7 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(header) + "\n"
+    csv_string += "|".join(header) + "\n"
 
     row = [
         contract["contract_number"],
@@ -292,9 +292,9 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(row) + "\n"
+    csv_string += "|".join(row) + "\n"
 
-    csv_string += ",".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
+    csv_string += "|".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
 
     header = [
         "Start",
@@ -310,7 +310,7 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(header) + "\n"
+    csv_string += "|".join(header) + "\n"
 
     row = [
         contract["start_date"],
@@ -326,9 +326,9 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(row) + "\n"
+    csv_string += "|".join(row) + "\n"
 
-    csv_string += ",".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
+    csv_string += "|".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
 
     pre_header = [
         "",
@@ -344,7 +344,7 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(pre_header) + "\n"
+    csv_string += "|".join(pre_header) + "\n"
 
     header = [
         "Item Number",
@@ -360,7 +360,7 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(header) + "\n"
+    csv_string += "|".join(header) + "\n"
 
     for item in contract["items"].keys():
         row = [
@@ -377,9 +377,9 @@ def create_csv_from_contract(contract: dict) -> str:
             "",
         ]
 
-        csv_string += ",".join([str(x) for x in row]) + "\n"
+        csv_string += "|".join([str(x) for x in row]) + "\n"
 
-    csv_string += ",".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
+    csv_string += "|".join(["", "", "", "", "", "", "", "", "", "", ""]) + "\n"
 
     header = [
         "Item Number",
@@ -395,7 +395,7 @@ def create_csv_from_contract(contract: dict) -> str:
         "",
     ]
 
-    csv_string += ",".join(header) + "\n"
+    csv_string += "|".join(header) + "\n"
 
     for item in contract["items"].keys():
         row = [
@@ -412,7 +412,7 @@ def create_csv_from_contract(contract: dict) -> str:
             "",
         ]
 
-        csv_string += ",".join([str(x) for x in row]) + "\n"
+        csv_string += "|".join([str(x) for x in row]) + "\n"
 
     return csv_string
 
@@ -437,10 +437,10 @@ if __name__ == "__main__":
 
     csv_string_io = StringIO(csv_string)
 
-    df = pd.read_csv(csv_string_io, header=None)
+    df = pd.read_csv(csv_string_io, header=None, delimiter="|")
     df.fillna("", inplace=True)
 
-    df.to_excel("test.xlsx", index=False, header=False)
+    df.to_excel(f"{contract['contract_number']}.xlsx", index=False, header=False)
 
     html = f"""
     <html lang="en">
@@ -466,7 +466,7 @@ if __name__ == "__main__":
     html += df_html
     html += "</html>"
 
-    with open("test.html", "w") as f:
+    with open(f"{contract['contract_number']}.html", "w") as f:
         f.write(html)
 
     print(df)
